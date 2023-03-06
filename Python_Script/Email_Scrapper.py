@@ -7,9 +7,12 @@ import urllib.parse
 from collections import deque
 import re
 
-user_url = str(input('[+] Enter Target URL To Scan: '))
-urls = deque([user_url])
+# Sanitize user input
+user_url = input('[+] Enter Target URL To Scan: ').strip()
+if not user_url.startswith(('http://', 'https://')):
+    user_url = 'http://' + user_url
 
+urls = deque([user_url])
 scraped_urls = set()
 emails = set()
 
@@ -50,4 +53,4 @@ except KeyboardInterrupt:
     print('[-] Closing!')
 
 for mail in emails:
-    print(mail)
+    print(mail) 
