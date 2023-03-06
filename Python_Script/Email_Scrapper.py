@@ -7,12 +7,15 @@ import urllib.parse
 from collections import deque
 import re
 
-# Sanitize user input
-user_url = input('[+] Enter Target URL To Scan: ').strip()
-if not user_url.startswith(('http://', 'https://')):
-    user_url = 'http://' + user_url
+# Validate and sanitize user input
+while True:
+    user_url = input('[+] Enter Target URL To Scan: ').strip()
+    if user_url.startswith(('http://', 'https://')):
+        break
+    print("Invalid URL. Please enter a valid URL starting with 'http://' or 'https://'.")
 
 urls = deque([user_url])
+
 scraped_urls = set()
 emails = set()
 
@@ -53,4 +56,4 @@ except KeyboardInterrupt:
     print('[-] Closing!')
 
 for mail in emails:
-    print(mail) 
+    print(mail)
